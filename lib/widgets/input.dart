@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Input extends StatefulWidget {
-  Input({Key key}) : super(key: key);
+  Input({Key key, @required this.sendMessage}) : super(key: key);
+
+  final Function sendMessage;
 
   @override
   _InputState createState() => _InputState();
@@ -17,7 +19,6 @@ class _InputState extends State<Input> {
   void _onChanged(String value) {
     // Not sure if this works or not
     setState(() => _value = value);
-    print(_value);
   }
 
   @override
@@ -50,7 +51,7 @@ class _InputState extends State<Input> {
                 // Validate will return true if the form is valid, or false if
                 // the form is invalid.
                 if (_formKey.currentState.validate()) {
-                  print('woohoo, input is valid');
+                  widget.sendMessage(_value);
                 }
               },
               child: Text('Send message'),

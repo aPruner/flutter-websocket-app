@@ -9,10 +9,8 @@ class ChatWindow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: (
-        Column(
-          children: messages
-        )
+      child: Column(
+        children: messages
       )
     );
   }

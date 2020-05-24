@@ -27,13 +27,6 @@ class WebsocketApp extends StatelessWidget {
     );
   }
 
-  void listen(channel) async {
-    channel.stream.listen((message) {
-      print('message received from server!');
-      print(message);
-    });
-  }
-
   String getServerHostname() {
     return DotEnv().env['SERVER_HOSTNAME'];
   }

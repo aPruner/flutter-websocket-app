@@ -7,7 +7,6 @@ import '../widgets/input.dart';
 class Chat extends StatefulWidget {
   Chat({Key key, @required this.chatService}) : super(key: key);
 
-  final List<Message> messages = <Message>[];
   final ChatService chatService;
 
   @override
@@ -16,25 +15,37 @@ class Chat extends StatefulWidget {
 
 class _ChatState extends State<Chat> {
 
+  List<Message> _messages = <Message>[];
+
   void addMessage(dynamic text) {
-    widget.messages.add(Message(text: text));
-    print('Message added! You should see it on the screen now');
+    _messages.add(Message(text: text));
+    List<Message> messages = new List<Message>.from(_messages);
+    setState(() => _messages = messages);
+
+    print('messages:');
+    print(_messages);
+  }
+
+  void sendMessage(message) {
+    widget.chatService.sendMessage(message);
   }
 
   @override
   void initState() {
     super.initState();
-    // Not sure if this is a good way to do this or not
+    // TODO: Not sure if this is a good way to bind addMessage to the ChatService, look into it
     widget.chatService.startService(addMessage);
   }
 
   @override
   Widget build(BuildContext build) {
-    return Column (
-      children: [
-        ChatWindow(messages: widget.messages),
-        Input()
-      ]
+    return Container (
+      child: Column(
+        children: <Widget>[
+          ChatWindow(messages: _messages),
+          Input(sendMessage: sendMessage)
+        ]
+      ),
     );
   }
 }
