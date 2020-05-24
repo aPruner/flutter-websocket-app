@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:web_socket_channel/io.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'screens/chat.dart';
-import 'utils.dart';
+import 'services/chat.dart';
 
 Future main() async {
   await DotEnv().load();
@@ -12,7 +11,9 @@ Future main() async {
 class WebsocketApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    connectToWebsocket();
+    // TODO: Decide if screens should create and hook into their own services instead
+    // Create and hook services into the app
+    ChatService chatService = ChatService(getServerHostname(), getServerPort());
     return MaterialApp(
       title: 'Websocket Chat Room',
       home: Scaffold(
@@ -20,7 +21,7 @@ class WebsocketApp extends StatelessWidget {
           title: Text('Websocket Chat Room'),
         ),
         body: Container(
-          child: Chat()
+          child: Chat(chatService: chatService)
         ),
       ),
     );
@@ -31,12 +32,6 @@ class WebsocketApp extends StatelessWidget {
       print('message received from server!');
       print(message);
     });
-  }
-
-  Future connectToWebsocket() async {
-    String serverHostname = getServerHostname();
-    String serverPort = getServerPort();
-    return IOWebSocketChannel.connect('ws://$serverHostname:$serverPort/ws/chat');
   }
 
   String getServerHostname() {

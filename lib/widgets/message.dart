@@ -7,6 +7,9 @@ class Message extends StatelessWidget {
   final String text;
 
   Widget build(BuildContext build) {
-    return Text(text);
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+      child: Text(text),
+    );
   }
 }
