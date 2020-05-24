@@ -1,16 +1,19 @@
 import 'package:flutter/cupertino.dart';
+import 'message.dart';
 
-class ChatWindow extends StatefulWidget {
-  const ChatWindow() : super();
+class ChatWindow extends StatelessWidget {
+  const ChatWindow({@required this.messages}) : super();
 
-  @override
-  _ChatWindowState createState() => _ChatWindowState();
-}
+  final List<Message> messages;
 
-class _ChatWindowState extends State<ChatWindow> {
   @override
   Widget build(BuildContext context) {
-    // TODO: Figure out how to add message children to state
-    return Container(color: const Color(0xFFFFE306));
+    return Container(
+      child: (
+        Column(
+          children: messages
+        )
+      )
+    );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'screens/chat.dart';
 import 'utils.dart';
 
 Future main() async {
@@ -19,13 +20,7 @@ class WebsocketApp extends StatelessWidget {
           title: Text('Websocket Chat Room'),
         ),
         body: Container(
-          child: Column(
-            children: [ // TODO: Render a list of messages from the websocket server
-              Text('This is text widget 1'),
-              Text('This is text widget 2'),
-              Text('This is text widget 3'),
-            ]
-          ),
+          child: Chat()
         ),
       ),
     );
